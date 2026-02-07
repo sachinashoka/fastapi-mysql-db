@@ -80,6 +80,8 @@ APP_VERSION=1.0.0
 DEBUG=True
 ```
 
+**Security Note**: The CORS configuration in `main.py` is set to allow specific origins. Update the `allow_origins` list with your actual frontend URLs in production.
+
 ## Running the Application
 
 Start the FastAPI server:
@@ -180,9 +182,11 @@ curl -X GET "http://localhost:8000/posts/?author=johndoe"
 - `id`: Integer (Primary Key)
 - `title`: String (Max 200 chars)
 - `content`: Text
-- `author`: String (Max 50 chars)
+- `author`: String (Max 50 chars) - Note: Uses username string for simplicity
 - `created_at`: DateTime (Auto-generated)
 - `updated_at`: DateTime (Auto-updated)
+
+**Note**: The current implementation uses a simple string reference for the post author field for simplicity. In a production environment, you may want to add a foreign key relationship between Post and User models.
 
 ## Development
 

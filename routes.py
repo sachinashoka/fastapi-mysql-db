@@ -3,7 +3,7 @@ API routes for the FastAPI MySQL application.
 """
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from typing import List
+from typing import List, Optional
 import crud
 import schemas
 from database import get_db
@@ -87,7 +87,7 @@ def create_post(post: schemas.PostCreate, db: Session = Depends(get_db)):
 
 
 @post_router.get("/", response_model=List[schemas.PostResponse])
-def read_posts(skip: int = 0, limit: int = 100, author: str = None, db: Session = Depends(get_db)):
+def read_posts(skip: int = 0, limit: int = 100, author: Optional[str] = None, db: Session = Depends(get_db)):
     """Get a list of posts, optionally filtered by author."""
     if author:
         posts = crud.get_posts_by_author(db, author=author, skip=skip, limit=limit)
